@@ -52,10 +52,10 @@ const Navbar = () => {
            !(localStorage.getItem('userId')&&value.userData.role==="Admin") &&
           <div className="flex items-center justify-end space-x-4 sm:space-x-6 md:space-x-10 w-full sm:w-auto">
             <Link to="/cart" className="relative hover:text-gray-400">
-              <FaShoppingCart className="text-xl" />
-              <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold w-4 h-4 flex items-center justify-center rounded-full">
+              {/* <FaShoppingCart className="text-xl" /> */}
+              {/* <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold w-4 h-4 flex items-center justify-center rounded-full">
                 {value.cartTotals} 
-              </span>
+              </span> */}
             </Link>
             <button to="/" className="hover:text-gray-400" onMouseEnter={()=>setIsHovered(true)} onClick={()=>setIsHovered(false)}>
               <FaUser />

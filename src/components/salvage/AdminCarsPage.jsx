@@ -23,6 +23,9 @@ const AdminCarsPage = () => {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
   const [galleryImageFiles, setGalleryImageFiles] = useState([]);
 
@@ -82,10 +85,13 @@ const AdminCarsPage = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    setSuccess('');
+    setIsSubmitting(true);
 
     try {
       if (!editingId && !coverImageFile) {
         setError('A cover image is required when creating a car.');
+        setIsSubmitting(false);
         return;
       }
 
@@ -126,9 +132,13 @@ const AdminCarsPage = () => {
 
       const refreshed = await apiRequest('/cars.php');
       setCars(refreshed.cars || []);
+      setSuccess(editingId ? 'Car updated successfully.' : 'Car created successfully.');
       resetForm();
     } catch (err) {
       setError(err.message);
+      setSuccess('');
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -136,11 +146,17 @@ const AdminCarsPage = () => {
     if (!window.confirm('Delete this car listing?')) return;
 
     setError('');
+    setSuccess('');
+    setDeletingId(id);
     try {
       await apiRequest(`/car.php?id=${id}`, { method: 'DELETE' });
       setCars((prev) => prev.filter((car) => car.id !== id));
+      setSuccess('Car deleted successfully.');
     } catch (err) {
       setError(err.message);
+      setSuccess('');
+    } finally {
+      setDeletingId(null);
     }
   }
 
@@ -199,14 +215,31 @@ const AdminCarsPage = () => {
           <input name="damage_summary" value={form.damage_summary} onChange={onChange} required placeholder="Damage summary" className="rounded-md border px-3 py-2 sm:col-span-2" />
           <textarea name="description" value={form.description} onChange={onChange} required placeholder="Description" className="rounded-md border px-3 py-2 sm:col-span-2" rows={3} />
 
+          {isSubmitting && (
+            <p className="sm:col-span-2 rounded-md bg-amber-100 p-2 text-sm text-amber-800">
+              Processing request. Please wait...
+            </p>
+          )}
+          {success && (
+            <p className="sm:col-span-2 rounded-md bg-green-100 p-2 text-sm text-green-800">{success}</p>
+          )}
           {error && <p className="sm:col-span-2 rounded-md bg-red-100 p-2 text-sm text-red-700">{error}</p>}
 
           <div className="sm:col-span-2 flex gap-3">
-            <button type="submit" className="rounded-md bg-stone-900 px-4 py-2 font-semibold text-white hover:bg-stone-700">
-              {editingId ? 'Update Car' : 'Create Car'}
+            <button
+              type="submit"
+              disabled={isSubmitting || deletingId !== null}
+              className="rounded-md bg-stone-900 px-4 py-2 font-semibold text-white hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isSubmitting ? 'Processing...' : editingId ? 'Update Car' : 'Create Car'}
             </button>
             {editingId && (
-              <button type="button" onClick={resetForm} className="rounded-md border border-stone-300 px-4 py-2">
+              <button
+                type="button"
+                onClick={resetForm}
+                disabled={isSubmitting}
+                className="rounded-md border border-stone-300 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-60"
+              >
                 Cancel
               </button>
             )}
@@ -242,8 +275,12 @@ const AdminCarsPage = () => {
                         <button onClick={() => beginEdit(car)} className="rounded bg-amber-500 px-3 py-1 font-medium text-stone-900">
                           Edit
                         </button>
-                        <button onClick={() => handleDelete(car.id)} className="rounded bg-red-600 px-3 py-1 font-medium text-white">
-                          Delete
+                        <button
+                          onClick={() => handleDelete(car.id)}
+                          disabled={isSubmitting || deletingId === car.id}
+                          className="rounded bg-red-600 px-3 py-1 font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          {deletingId === car.id ? 'Deleting...' : 'Delete'}
                         </button>
                       </div>
                     </td>

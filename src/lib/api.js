@@ -25,7 +25,12 @@ export async function apiRequest(path, options = {}) {
   }
 
   if (!res.ok) {
-    throw new Error(data?.message || 'Request failed');
+    const details = Array.isArray(data?.errors)
+      ? data.errors.join(', ')
+      : data?.errors && typeof data.errors === 'object'
+        ? Object.values(data.errors).flat().join(', ')
+        : '';
+    throw new Error(data?.message || details || `Request failed (${res.status})`);
   }
 
   return data;

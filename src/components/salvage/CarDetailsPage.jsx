@@ -64,15 +64,15 @@ const CarDetailsPage = () => {
       <Link to="/" className="text-sm font-medium text-amber-700 hover:underline">
         Back to inventory
       </Link>
-      {loading && <p className="mt-4 text-stone-600">Loading car...</p>}
+      {loading && <p className="mt-4 text-stone-600 dark:text-stone-300">Loading car...</p>}
       {error && <p className="mt-4 rounded-md bg-red-100 p-3 text-red-700">{error}</p>}
 
       {car && (
-        <section className="mt-4 rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-          <h1 className="text-2xl font-extrabold text-stone-900">
+        <section className="mt-4 rounded-xl border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-700 dark:bg-stone-900">
+          <h1 className="text-2xl font-extrabold text-stone-900 dark:text-stone-100">
             {car.year} {car.make} {car.model}
           </h1>
-          <p className="mt-1 text-stone-600">VIN: {car.vin}</p>
+          <p className="mt-1 text-stone-600 dark:text-stone-300">VIN: {car.vin}</p>
 
           <div className="mt-5">
             <img
@@ -92,7 +92,7 @@ const CarDetailsPage = () => {
                       setIsLightboxOpen(true);
                     }}
                     className={`overflow-hidden rounded-md border ${
-                      selectedImage === url ? 'border-amber-500' : 'border-stone-200'
+                      selectedImage === url ? 'border-amber-500' : 'border-stone-200 dark:border-stone-700'
                     }`}
                   >
                     <img
@@ -107,7 +107,7 @@ const CarDetailsPage = () => {
             )}
           </div>
 
-          <div className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+          <div className="mt-5 grid gap-3 text-sm text-stone-700 dark:text-stone-200 sm:grid-cols-2">
             <p><span className="font-semibold">Price:</span> KES {Number(car.price).toLocaleString()}</p>
             <p><span className="font-semibold">Mileage:</span> {Math.round(Number(car.mileage) * MILES_TO_KM).toLocaleString()} km</p>
             <p><span className="font-semibold">Location:</span> {car.location}</p>

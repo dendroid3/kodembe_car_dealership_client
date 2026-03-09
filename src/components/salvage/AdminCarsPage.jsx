@@ -162,17 +162,17 @@ const AdminCarsPage = () => {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <section className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-stone-900">Admin Car Management</h1>
-        <p className="mt-1 text-sm text-stone-600">Create, edit, and remove salvage car listings.</p>
+      <section className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-700 dark:bg-stone-900">
+        <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">Admin Car Management</h1>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">Create, edit, and remove salvage car listings.</p>
 
         <form onSubmit={handleSubmit} className="mt-5 grid gap-3 sm:grid-cols-2">
-          <input name="make" value={form.make} onChange={onChange} required placeholder="Make" className="rounded-md border px-3 py-2" />
-          <input name="model" value={form.model} onChange={onChange} required placeholder="Model" className="rounded-md border px-3 py-2" />
-          <input name="year" type="number" value={form.year} onChange={onChange} required placeholder="Year" className="rounded-md border px-3 py-2" />
-          <input name="vin" value={form.vin} onChange={onChange} required placeholder="VIN" className="rounded-md border px-3 py-2" />
+          <input name="make" value={form.make} onChange={onChange} required placeholder="Make" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
+          <input name="model" value={form.model} onChange={onChange} required placeholder="Model" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
+          <input name="year" type="number" value={form.year} onChange={onChange} required placeholder="Year" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
+          <input name="vin" value={form.vin} onChange={onChange} required placeholder="VIN" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
           <div className="sm:col-span-2">
-            <label className="mb-1 block text-sm font-medium text-stone-700">
+            <label className="mb-1 block text-sm font-medium text-stone-700 dark:text-stone-200">
               Cover image {editingId ? '(optional for update)' : ''}
             </label>
             <input
@@ -180,11 +180,11 @@ const AdminCarsPage = () => {
               accept="image/*"
               required={!editingId}
               onChange={(e) => setCoverImageFile(e.target.files?.[0] || null)}
-              className="w-full rounded-md border px-3 py-2"
+              className="w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="mb-1 block text-sm font-medium text-stone-700">
+            <label className="mb-1 block text-sm font-medium text-stone-700 dark:text-stone-200">
               Gallery images {editingId ? '(optional for update)' : ''}
             </label>
             <input
@@ -192,28 +192,28 @@ const AdminCarsPage = () => {
               accept="image/*"
               multiple
               onChange={(e) => setGalleryImageFiles(Array.from(e.target.files || []))}
-              className="w-full rounded-md border px-3 py-2"
+              className="w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
-          <input name="mileage" type="number" value={form.mileage} onChange={onChange} required placeholder="Mileage" className="rounded-md border px-3 py-2" />
-          <input name="price" type="number" step="0.01" value={form.price} onChange={onChange} required placeholder="Price (KES)" className="rounded-md border px-3 py-2" />
-          <input name="location" value={form.location} onChange={onChange} required placeholder="Location" className="rounded-md border px-3 py-2" />
+          <input name="mileage" type="number" value={form.mileage} onChange={onChange} required placeholder="Mileage" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
+          <input name="price" type="number" step="0.01" value={form.price} onChange={onChange} required placeholder="Price (KES)" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
+          <input name="location" value={form.location} onChange={onChange} required placeholder="Location" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100" />
 
-          <select name="status" value={form.status} onChange={onChange} className="rounded-md border px-3 py-2">
+          <select name="status" value={form.status} onChange={onChange} className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100">
             <option>Available</option>
             <option>Sold</option>
             <option>Pending</option>
           </select>
 
-          <select name="title_status" value={form.title_status} onChange={onChange} className="rounded-md border px-3 py-2">
+          <select name="title_status" value={form.title_status} onChange={onChange} className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100">
             <option>Salvage</option>
             <option>Clean</option>
             <option>Rebuilt</option>
             <option>Parts Only</option>
           </select>
 
-          <input name="damage_summary" value={form.damage_summary} onChange={onChange} required placeholder="Damage summary" className="rounded-md border px-3 py-2 sm:col-span-2" />
-          <textarea name="description" value={form.description} onChange={onChange} required placeholder="Description" className="rounded-md border px-3 py-2 sm:col-span-2" rows={3} />
+          <input name="damage_summary" value={form.damage_summary} onChange={onChange} required placeholder="Damage summary" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 sm:col-span-2" />
+          <textarea name="description" value={form.description} onChange={onChange} required placeholder="Description" className="rounded-md border border-stone-300 bg-white px-3 py-2 text-stone-900 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 sm:col-span-2" rows={3} />
 
           {isSubmitting && (
             <p className="sm:col-span-2 rounded-md bg-amber-100 p-2 text-sm text-amber-800">
@@ -238,7 +238,7 @@ const AdminCarsPage = () => {
                 type="button"
                 onClick={resetForm}
                 disabled={isSubmitting}
-                className="rounded-md border border-stone-300 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-md border border-stone-300 px-4 py-2 dark:border-stone-700 dark:text-stone-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Cancel
               </button>
@@ -247,15 +247,15 @@ const AdminCarsPage = () => {
         </form>
       </section>
 
-      <section className="mt-6 rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-bold text-stone-900">Current Listings</h2>
+      <section className="mt-6 rounded-xl border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-700 dark:bg-stone-900">
+        <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100">Current Listings</h2>
         {loading ? (
-          <p className="mt-3 text-stone-600">Loading listings...</p>
+          <p className="mt-3 text-stone-600 dark:text-stone-300">Loading listings...</p>
         ) : (
           <div className="mt-4 overflow-x-auto">
-            <table className="min-w-full border-collapse text-sm">
+            <table className="min-w-full border-collapse text-sm text-stone-700 dark:text-stone-200">
               <thead>
-                <tr className="border-b bg-stone-50 text-left">
+                <tr className="border-b bg-stone-50 text-left dark:border-stone-700 dark:bg-stone-800">
                   <th className="px-3 py-2">Car</th>
                   <th className="px-3 py-2">VIN</th>
                   <th className="px-3 py-2">Price</th>
@@ -265,7 +265,7 @@ const AdminCarsPage = () => {
               </thead>
               <tbody>
                 {cars.map((car) => (
-                  <tr key={car.id} className="border-b">
+                  <tr key={car.id} className="border-b dark:border-stone-700">
                     <td className="px-3 py-2">{car.year} {car.make} {car.model}</td>
                     <td className="px-3 py-2">{car.vin}</td>
                     <td className="px-3 py-2">KES {Number(car.price).toLocaleString()}</td>
@@ -288,7 +288,7 @@ const AdminCarsPage = () => {
                 ))}
                 {cars.length === 0 && (
                   <tr>
-                    <td className="px-3 py-3 text-stone-600" colSpan={5}>No cars found.</td>
+                    <td className="px-3 py-3 text-stone-600 dark:text-stone-300" colSpan={5}>No cars found.</td>
                   </tr>
                 )}
               </tbody>

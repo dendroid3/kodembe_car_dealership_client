@@ -42,13 +42,13 @@ const InventoryPage = () => {
         <p className="mt-2 text-stone-200">Kenya&apos;s trusted marketplace for quality salvage vehicles.</p>
       </section>
 
-      {loading && <p className="text-stone-600">Loading inventory...</p>}
+      {loading && <p className="text-stone-600 dark:text-stone-300">Loading inventory...</p>}
       {error && <p className="rounded-md bg-red-100 p-3 text-red-700">{error}</p>}
 
       {!loading && !error && (
         <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cars.map((car) => (
-            <article key={car.id} className="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
+            <article key={car.id} className="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900">
               <img
                 src={toMediaUrl(car.image_url) || 'https://via.placeholder.com/640x360?text=No+Image'}
                 alt={`${car.year} ${car.make} ${car.model}`}
@@ -57,18 +57,18 @@ const InventoryPage = () => {
               />
               <div className="p-5">
               <div className="mb-3 flex items-start justify-between gap-3">
-                <h2 className="text-lg font-bold text-stone-900">
+                <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100">
                   {car.year} {car.make} {car.model}
                 </h2>
-                <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold text-stone-700">
+                <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold text-stone-700 dark:bg-stone-800 dark:text-stone-200">
                   {car.status}
                 </span>
               </div>
-              <p className="text-sm text-stone-600">{car.damage_summary}</p>
-              <div className="mt-4 space-y-1 text-sm text-stone-700">
+              <p className="text-sm text-stone-600 dark:text-stone-300">{car.damage_summary}</p>
+              <div className="mt-4 space-y-1 text-sm text-stone-700 dark:text-stone-200">
                 <p>Mileage: {Math.round(Number(car.mileage) * MILES_TO_KM).toLocaleString()} km</p>
                 <p>Location: {car.location}</p>
-                <p className="font-bold text-stone-900">KES {Number(car.price).toLocaleString()}</p>
+                <p className="font-bold text-stone-900 dark:text-stone-100">KES {Number(car.price).toLocaleString()}</p>
               </div>
               <Link
                 to={`/cars/${car.id}`}
@@ -79,7 +79,7 @@ const InventoryPage = () => {
               </div>
             </article>
           ))}
-          {cars.length === 0 && <p className="text-stone-600">No salvage cars available right now.</p>}
+          {cars.length === 0 && <p className="text-stone-600 dark:text-stone-300">No salvage cars available right now.</p>}
         </section>
       )}
     </main>
